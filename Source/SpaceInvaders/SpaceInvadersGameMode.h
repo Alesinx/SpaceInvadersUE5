@@ -4,7 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "SpaceInvadersGameMode.generated.h"
 
-class ASpaceInvadersPlayersShip;
+class ASpaceInvadersPlayerShip;
 class ASpaceInvadersEnemy;
 
 /**
@@ -20,10 +20,9 @@ public:
 
 	virtual void StartPlay() override;
 
-	ASpaceInvadersPlayersShip* GetPlayerShip() { return nullptr; }
+	ASpaceInvadersPlayerShip* GetPlayerShip() { return nullptr; }
 
 private:
-	void InitializePlayerShip();
 	void InitializeEnemies();
 
 private:
@@ -31,10 +30,9 @@ private:
 	int EnemiesColums = 5;
 	int EnemiesRows = 5;
 	int SpacebetweenEnemies = 200;
-	FVector2D EnemiesStartingPosition = FVector2D(100, 100);
+	FVector2D EnemiesStartingPosition = FVector2D(0, 1000);
 
 	UPROPERTY()
-	ASpaceInvadersPlayersShip* PlayerShip;
-
+	ASpaceInvadersPlayerShip* PlayerShip;
 	TArray<ASpaceInvadersEnemy*> Enemies;
 };

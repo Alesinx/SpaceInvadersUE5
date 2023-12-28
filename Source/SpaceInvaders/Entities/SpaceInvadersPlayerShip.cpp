@@ -1,18 +1,7 @@
 #include "SpaceInvadersPlayerShip.h"
-#include "Math/UnrealMathUtility.h"
 
-ASpaceInvadersPlayersShip::ASpaceInvadersPlayersShip()
+ASpaceInvadersPlayerShip::ASpaceInvadersPlayerShip()
 {
 	PrimaryActorTick.bCanEverTick = false;
-	UE_LOG(LogTemp, Warning, TEXT("ASpaceInvadersPlayersShip's constructor called"));
-}
-
-void ASpaceInvadersPlayersShip::MoveLeft()
-{
-	ASpaceInvadersMoveable::MoveLeft();
-}
-
-void ASpaceInvadersPlayersShip::MoveRight()
-{
-	ASpaceInvadersMoveable::MoveRight();
+	UE_LOG(LogTemp, Warning, TEXT("ASpaceInvadersPlayerShip's constructor called"));
 }

@@ -1,20 +1,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SpaceInvaders/Entities/SpaceInvadersMoveable.h"
+#include "SpaceInvaders/Entities/SpaceInvadersEntity.h"
 #include "SpaceInvadersPlayerShip.generated.h"
 
 /**
  * Class representing a space invaders player ship
  */
 UCLASS()
-class SPACEINVADERS_API ASpaceInvadersPlayersShip : public ASpaceInvadersMoveable
+class SPACEINVADERS_API ASpaceInvadersPlayerShip : public ASpaceInvadersEntity
 {
 	GENERATED_BODY()
 
-	public:
-		ASpaceInvadersPlayersShip();
-
-		void MoveLeft();
-		void MoveRight();
+public:
+	ASpaceInvadersPlayerShip();
 };

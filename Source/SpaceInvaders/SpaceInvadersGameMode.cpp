@@ -1,13 +1,13 @@
 #include "SpaceInvadersGameMode.h"
 #include "SpaceInvaders/SpaceInvadersPlayerController.h"
-#include "SpaceInvaders/Entities/SpaceInvadersPlayerShip.h"
+#include "SpaceInvaders/SpaceInvadersPlayerView.h"
 #include "SpaceInvaders/Entities/SpaceInvadersEnemy.h"
 
 ASpaceInvadersGameMode::ASpaceInvadersGameMode()
 {
     UE_LOG(LogTemp, Warning, TEXT("ASpaceInvadersGameMode's constructor called"));
     PlayerControllerClass = ASpaceInvadersPlayerController::StaticClass();
-    DefaultPawnClass = ASpaceInvadersPlayersShip::StaticClass();
+    DefaultPawnClass = ASpaceInvadersPlayerView::StaticClass();
 }
 
 void ASpaceInvadersGameMode::StartPlay()
@@ -16,15 +16,8 @@ void ASpaceInvadersGameMode::StartPlay()
 
     UE_LOG(LogTemp, Warning, TEXT("Space Invaders Game Mode has started!"));
 
-
-
     //InitializePlayerShip();
     InitializeEnemies();
-}
-
-void ASpaceInvadersGameMode::InitializePlayerShip()
-{
-    PlayerShip = GetWorld()->SpawnActor<ASpaceInvadersPlayersShip>(ASpaceInvadersPlayersShip::StaticClass());
 }
 
 void ASpaceInvadersGameMode::InitializeEnemies()

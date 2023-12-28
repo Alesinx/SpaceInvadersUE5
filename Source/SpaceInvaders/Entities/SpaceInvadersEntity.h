@@ -7,6 +7,10 @@
 class UBoxComponent;
 class UMeshComponent;
 
+/**
+ * Common class to Space Invaders enemies, player ship and defenses.
+ * Any entity will destroy itself when colliding with something.
+ */
 UCLASS()
 class SPACEINVADERS_API ASpaceInvadersEntity : public APawn
 {

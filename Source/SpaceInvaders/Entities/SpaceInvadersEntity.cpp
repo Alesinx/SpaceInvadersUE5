@@ -29,4 +29,5 @@ void ASpaceInvadersEntity::InitCollisionComponent()
 void ASpaceInvadersEntity::OnCollision()
 {
 	UE_LOG(LogTemp, Warning, TEXT("ASpaceInvadersEntity::OnCollision() called"));
+	Destroy();
 }
