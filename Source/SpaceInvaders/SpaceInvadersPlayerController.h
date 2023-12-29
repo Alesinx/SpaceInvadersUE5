@@ -21,10 +21,7 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MovementStepX = 10.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MovementStepY = 10.0f;
+	float MovementSpeed = 10.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
 	float MaxXLocation = 1000.0f;
@@ -32,19 +29,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
 	float MinXLocation = 0.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MaxYLocation = 1000.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MinYLocation = 0.0f;
-
 private:
 	UPROPERTY()
 	ASpaceInvadersPlayerShip* PlayerShip;
 
 private:
 	void InitializePlayerShip();
-	void MoveLeft();
-	void MoveRight();
-	void MoveShip(float OffsetX, float OffsetY);
+	void MovePlayerShip(float Amount);
+	void Fire();
 };

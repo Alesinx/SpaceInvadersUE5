@@ -2,13 +2,14 @@
 #include "SpaceInvaders/SpaceInvadersGameMode.h"
 #include "SpaceInvaders/Entities/SpaceInvadersPlayerShip.h"
 #include "Math/UnrealMathUtility.h"
+#include "Kismet/GameplayStatics.h"
 
 void ASpaceInvadersPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
 
-    InputComponent->BindAction("MoveLeft", IE_Repeat, this, &ASpaceInvadersPlayerController::MoveLeft);
-    InputComponent->BindAction("MoveRight", IE_Repeat, this, &ASpaceInvadersPlayerController::MoveRight);
+    InputComponent->BindAxis("Move", this, &ASpaceInvadersPlayerController::MovePlayerShip);
+    InputComponent->BindAction("Fire", IE_Pressed, this, &ASpaceInvadersPlayerController::Fire);
 }
 
 void ASpaceInvadersPlayerController::BeginPlay()
@@ -23,28 +24,25 @@ void ASpaceInvadersPlayerController::InitializePlayerShip()
     PlayerShip = GetWorld()->SpawnActor<ASpaceInvadersPlayerShip>(ASpaceInvadersPlayerShip::StaticClass());
 }
 
-void ASpaceInvadersPlayerController::MoveLeft()
-{
-    UE_LOG(LogTemp, Warning, TEXT("MoveLeft called"));
-    MoveShip(MovementStepX, 0);
-}
-
-void ASpaceInvadersPlayerController::MoveRight()
-{
-    UE_LOG(LogTemp, Warning, TEXT("MoveRight called"));
-    MoveShip(-MovementStepX, 0);
-}
-
-void ASpaceInvadersPlayerController::MoveShip(float OffsetX, float OffsetY)
+void ASpaceInvadersPlayerController::MovePlayerShip(float Amount)
 {
     if (PlayerShip)
     {
         const FVector currentLocation = PlayerShip->GetActorLocation();
+        const float offset = Amount * MovementSpeed * UGameplayStatics::GetWorldDeltaSeconds(this);
         const FVector newLocation = FVector(
-            FMath::Clamp(currentLocation.X + OffsetX, MinXLocation, MaxXLocation),
-            FMath::Clamp(currentLocation.Y + OffsetY, MinYLocation, MaxYLocation),
-            0);
+            FMath::Clamp(currentLocation.X + Amount * MovementSpeed, MinXLocation, MaxXLocation),
+            currentLocation.Y,
+            currentLocation.Z);
 
         PlayerShip->SetActorLocation(newLocation);
     }
+}
+
+void ASpaceInvadersPlayerController::Fire()
+{
+    if (PlayerShip)
+    {
+		PlayerShip->Fire();
+	}
 }

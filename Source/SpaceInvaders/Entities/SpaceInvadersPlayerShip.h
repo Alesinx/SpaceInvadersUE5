@@ -14,4 +14,5 @@ class SPACEINVADERS_API ASpaceInvadersPlayerShip : public ASpaceInvadersEntity
 
 public:
 	ASpaceInvadersPlayerShip();
+	void Fire();
 };

@@ -12,7 +12,7 @@ class UMeshComponent;
  * Any entity will destroy itself when colliding with something.
  */
 UCLASS()
-class SPACEINVADERS_API ASpaceInvadersEntity : public APawn
+class SPACEINVADERS_API ASpaceInvadersEntity : public AActor
 {
 	GENERATED_BODY()
 	
