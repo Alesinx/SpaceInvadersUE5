@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "SpaceInvadersGameMode.generated.h"
+#include "SpaceInvadersGameModeInGame.generated.h"
 
 class ASpaceInvadersPlayerShip;
 class ASpaceInvadersEnemy;
@@ -11,7 +11,7 @@ class ASpaceInvadersEnemy;
  * Space Invaders Game Mode
  */
 UCLASS()
-class SPACEINVADERS_API ASpaceInvadersGameMode : public AGameModeBase
+class SPACEINVADERS_API ASpaceInvadersGameModeInGame : public AGameModeBase
 {
 	GENERATED_BODY()
 
@@ -20,7 +20,7 @@ public:
 	float PlayingAreaHeight = 3000;
 	
 public:
-	ASpaceInvadersGameMode();
+	ASpaceInvadersGameModeInGame();
 
 	virtual void StartPlay() override;
 

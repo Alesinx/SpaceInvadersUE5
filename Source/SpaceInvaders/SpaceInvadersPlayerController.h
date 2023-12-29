@@ -5,7 +5,7 @@
 #include "SpaceInvadersPlayerController.generated.h"
 
 class ASpaceInvadersPlayerShip;
-class ASpaceInvadersGameMode;
+class ASpaceInvadersGameModeInGame;
 
 /**
  * Space Invaders Player Controller
@@ -32,7 +32,7 @@ private:
 	ASpaceInvadersPlayerShip* PlayerShip;
 
 	float LastFireTime = 0.0f;
-	ASpaceInvadersGameMode* GameMode = nullptr;
+	ASpaceInvadersGameModeInGame* GameMode = nullptr;
 
 private:
 	void InitializePlayerShip();

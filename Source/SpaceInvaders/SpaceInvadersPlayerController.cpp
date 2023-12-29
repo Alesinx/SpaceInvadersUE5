@@ -1,5 +1,5 @@
 #include "SpaceInvadersPlayerController.h"
-#include "SpaceInvaders/SpaceInvadersGameMode.h"
+#include "SpaceInvaders/SpaceInvadersGameModeInGame.h"
 #include "SpaceInvaders/Entities/SpaceInvadersPlayerShip.h"
 #include "Math/UnrealMathUtility.h"
 #include "Kismet/GameplayStatics.h"
@@ -16,7 +16,7 @@ void ASpaceInvadersPlayerController::BeginPlay()
 {
     Super::BeginPlay();
 
-    GameMode = Cast<ASpaceInvadersGameMode>(GetWorld()->GetAuthGameMode());
+    GameMode = Cast<ASpaceInvadersGameModeInGame>(GetWorld()->GetAuthGameMode());
     if (!GameMode)
     {
 		UE_LOG(LogTemp, Error, TEXT("Coudl not find Game Mode"));

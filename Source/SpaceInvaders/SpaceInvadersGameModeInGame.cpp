@@ -1,17 +1,17 @@
-#include "SpaceInvadersGameMode.h"
+#include "SpaceInvaders/SpaceInvadersGameModeInGame.h"
 #include "SpaceInvaders/SpaceInvadersPlayerController.h"
 #include "SpaceInvaders/SpaceInvadersPlayerView.h"
 #include "SpaceInvaders/Entities/SpaceInvadersEnemy.h"
 
-ASpaceInvadersGameMode::ASpaceInvadersGameMode()
+ASpaceInvadersGameModeInGame::ASpaceInvadersGameModeInGame()
 {
     PrimaryActorTick.bCanEverTick = true;
-    UE_LOG(LogTemp, Log, TEXT("ASpaceInvadersGameMode's constructor called"));
+    UE_LOG(LogTemp, Log, TEXT("ASpaceInvadersGameModeInGame's constructor called"));
     PlayerControllerClass = ASpaceInvadersPlayerController::StaticClass();
     DefaultPawnClass = ASpaceInvadersPlayerView::StaticClass();
 }
 
-void ASpaceInvadersGameMode::StartPlay()
+void ASpaceInvadersGameModeInGame::StartPlay()
 {
     Super::StartPlay();
 
@@ -20,7 +20,7 @@ void ASpaceInvadersGameMode::StartPlay()
     InitializeEnemies();
 }
 
-void ASpaceInvadersGameMode::InitializeEnemies()
+void ASpaceInvadersGameModeInGame::InitializeEnemies()
 {  
     const FRotator EnemySpawnRotation = FRotator(0.0f, -90.0f, 0.0f);
     for (int i = 0; i < EnemiesColums; i++)
@@ -34,7 +34,7 @@ void ASpaceInvadersGameMode::InitializeEnemies()
 	}
 }
 
-void ASpaceInvadersGameMode::Tick(float DeltaTime)
+void ASpaceInvadersGameModeInGame::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
@@ -42,7 +42,7 @@ void ASpaceInvadersGameMode::Tick(float DeltaTime)
     FireRandomEnemy();
 }
 
-void ASpaceInvadersGameMode::MoveEnemies(float DeltaTime)
+void ASpaceInvadersGameModeInGame::MoveEnemies(float DeltaTime)
 {
     if (Enemies.Num() > 0)
     {
@@ -92,7 +92,7 @@ void ASpaceInvadersGameMode::MoveEnemies(float DeltaTime)
 	}
 }
 
-void ASpaceInvadersGameMode::FireRandomEnemy()
+void ASpaceInvadersGameModeInGame::FireRandomEnemy()
 {
     if (Enemies.Num() > 0)
     {
