@@ -19,6 +19,7 @@ public:
 	ASpaceInvadersPlayerController() = default;
 	void SetupInputComponent() override;
 	void BeginPlay() override;
+	ASpaceInvadersPlayerShip* GetPlayerShip() const { return PlayerShip; };
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")

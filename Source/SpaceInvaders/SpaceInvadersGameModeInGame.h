@@ -35,8 +35,8 @@ private:
 	float EnemiesOffsetY = 0;
 
 	float EnemiesMovementDirection = 1.0f;
-	float MaxEnemiesMovementSpeed = 1500.0f;
-	float MinEnemiesMovementSpeed = 500.0f;
+	float MaxEnemiesMovementSpeed = 1250.0f;
+	float MinEnemiesMovementSpeed = 250.0f;
 
 	float EnemyFireFrecSeconds = 2.0f;
 	float LastFireTime = 0;
@@ -48,4 +48,5 @@ private:
 	void Tick(float DeltaTime) override;
 	void MoveEnemies(float DeltaTime);
 	void FireRandomEnemy();
+	void OnPlayerShipHit();
 };

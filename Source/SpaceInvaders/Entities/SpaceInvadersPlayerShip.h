@@ -6,6 +6,9 @@
 
 class ASpaceInvadersProjectileBase;
 
+// Add delegate type declaration here
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnShipHitDelegate);
+
 /**
  * Class representing a space invaders player ship
  */
@@ -23,4 +26,10 @@ public:
 
 	UFUNCTION()
 	void Fire();
+
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) override;
+
+	// Add delegate declaration here
+	FOnShipHitDelegate OnShipHit;
 };

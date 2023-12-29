@@ -1,5 +1,6 @@
 #include "SpaceInvaders/SpaceInvadersGameModeInGame.h"
 #include "SpaceInvaders/SpaceInvadersPlayerController.h"
+#include "SpaceInvaders/Entities/SpaceInvadersPlayerShip.h"
 #include "SpaceInvaders/SpaceInvadersPlayerView.h"
 #include "SpaceInvaders/Entities/SpaceInvadersEnemy.h"
 
@@ -18,6 +19,12 @@ void ASpaceInvadersGameModeInGame::StartPlay()
     UE_LOG(LogTemp, Warning, TEXT("Space Invaders Game Mode has started!"));
 
     InitializeEnemies();
+
+ //   ASpaceInvadersPlayerController* PlayerController = Cast<ASpaceInvadersPlayerController>(GetWorld()->GetFirstPlayerController());
+ //   if (PlayerController)
+ //   {
+	//	PlayerController->GetPlayerShip()->OnShipHit.AddDynamic(this, &ASpaceInvadersGameModeInGame::OnPlayerShipHit);
+	//}
 }
 
 void ASpaceInvadersGameModeInGame::InitializeEnemies()
@@ -109,4 +116,9 @@ void ASpaceInvadersGameModeInGame::FireRandomEnemy()
             LastFireTime = GetWorld()->GetTimeSeconds();
         }
     }
+}
+
+void ASpaceInvadersGameModeInGame::OnPlayerShipHit()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Player hit!"));
 }

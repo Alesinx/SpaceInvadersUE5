@@ -25,3 +25,9 @@ void ASpaceInvadersPlayerShip::Fire()
 		Projectile->SetOwner(this);
 	}
 }
+
+void ASpaceInvadersPlayerShip::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("ASpaceInvadersPlayerShip::OnOverlapBegin() called"));
+	OnShipHit.Broadcast();
+}
