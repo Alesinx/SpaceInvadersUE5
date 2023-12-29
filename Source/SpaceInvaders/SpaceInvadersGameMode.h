@@ -41,6 +41,9 @@ private:
 	int SpacebetweenEnemies = 200;
 
 	UPROPERTY()
+	float EnemyFireFrecSeconds = 2.0f;
+
+	UPROPERTY()
 	FVector2D EnemiesStartingPosition = FVector2D(0, 1000);
 
 	UPROPERTY()
@@ -52,4 +55,8 @@ private:
 private:
 	UFUNCTION()
 	void InitializeEnemies();
+
+	void Tick(float DeltaTime) override;
+	
+	float LastFireTime = 0;
 };
