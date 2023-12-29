@@ -5,7 +5,6 @@
 ASpaceInvadersPlayerView::ASpaceInvadersPlayerView()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 }
 

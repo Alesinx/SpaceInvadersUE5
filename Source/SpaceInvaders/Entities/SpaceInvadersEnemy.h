@@ -4,6 +4,8 @@
 #include "SpaceInvadersEntity.h"
 #include "SpaceInvadersEnemy.generated.h"
 
+class ASpaceInvadersProjectileBase;
+
 /**
  * Class representing a space invaders enemy
  */
@@ -14,4 +16,16 @@ class SPACEINVADERS_API ASpaceInvadersEnemy : public ASpaceInvadersEntity
 
 public:
 	ASpaceInvadersEnemy();
+
+public:
+	UPROPERTY()
+	FVector ProjectileOffset = FVector(0.0f, -100.0f, 0.0f);
+
+public:
+	UFUNCTION()
+	void Fire();
+
+//private:
+//	UPROPERTY()
+//	TSubclassOf<ASpaceInvadersProjectileBase> ProjectileClass;
 };

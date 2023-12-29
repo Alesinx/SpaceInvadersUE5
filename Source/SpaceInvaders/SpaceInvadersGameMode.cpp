@@ -5,7 +5,7 @@
 
 ASpaceInvadersGameMode::ASpaceInvadersGameMode()
 {
-    UE_LOG(LogTemp, Warning, TEXT("ASpaceInvadersGameMode's constructor called"));
+    UE_LOG(LogTemp, Log, TEXT("ASpaceInvadersGameMode's constructor called"));
     PlayerControllerClass = ASpaceInvadersPlayerController::StaticClass();
     DefaultPawnClass = ASpaceInvadersPlayerView::StaticClass();
 }

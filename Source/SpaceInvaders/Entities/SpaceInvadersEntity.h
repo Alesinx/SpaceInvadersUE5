@@ -19,12 +19,11 @@ class SPACEINVADERS_API ASpaceInvadersEntity : public AActor
 public:	
 	ASpaceInvadersEntity();
 
-	virtual void InitMeshComponent();
-	virtual void InitCollisionComponent();
+	// On overlap begin event
+	UFUNCTION()
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	void OnCollision();
-
-private:
-	UBoxComponent* CollisionComponent;
-	UMeshComponent* MeshComponent;
+protected:
+	UStaticMeshComponent* MeshComponent;
 };

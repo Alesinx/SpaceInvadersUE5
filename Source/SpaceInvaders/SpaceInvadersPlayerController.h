@@ -24,6 +24,9 @@ protected:
 	float MovementSpeed = 10.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
+	float FireRate = 0.5f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
 	float MaxXLocation = 1000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
@@ -32,6 +35,8 @@ protected:
 private:
 	UPROPERTY()
 	ASpaceInvadersPlayerShip* PlayerShip;
+
+	float LastFireTime = 0.0f;
 
 private:
 	void InitializePlayerShip();

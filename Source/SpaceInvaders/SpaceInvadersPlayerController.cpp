@@ -21,7 +21,15 @@ void ASpaceInvadersPlayerController::BeginPlay()
 
 void ASpaceInvadersPlayerController::InitializePlayerShip()
 {
-    PlayerShip = GetWorld()->SpawnActor<ASpaceInvadersPlayerShip>(ASpaceInvadersPlayerShip::StaticClass());
+    FVector ShipSpawnLocation = FVector(0.0f, 0.0f, 0.0f);
+    const FRotator ShipSpawnRotation = FRotator(0.0f, 90.0f, 0.0f);
+
+    ASpaceInvadersGameMode* GameMode = Cast<ASpaceInvadersGameMode>(GetWorld()->GetAuthGameMode());
+    if (GameMode)
+    {
+        ShipSpawnLocation = FVector(GameMode->PlayingAreaWidth / 2, 0.0f , 0.0f);
+	}
+    PlayerShip = GetWorld()->SpawnActor<ASpaceInvadersPlayerShip>(ASpaceInvadersPlayerShip::StaticClass(), ShipSpawnLocation, ShipSpawnRotation);
 }
 
 void ASpaceInvadersPlayerController::MovePlayerShip(float Amount)
@@ -41,8 +49,18 @@ void ASpaceInvadersPlayerController::MovePlayerShip(float Amount)
 
 void ASpaceInvadersPlayerController::Fire()
 {
-    if (PlayerShip)
+    if (!PlayerShip)
     {
-		PlayerShip->Fire();
+        UE_LOG(LogTemp, Error, TEXT("Player ship not found. Aborting fire"));
+		return;
 	}
+
+    if (GetWorld()->GetTimeSeconds() - LastFireTime < FireRate)
+    {
+		UE_LOG(LogTemp, Warning, TEXT("Player ship gun's is on cooldown!"));
+		return;
+	}
+
+	PlayerShip->Fire();
+    LastFireTime = GetWorld()->GetTimeSeconds();
 }
