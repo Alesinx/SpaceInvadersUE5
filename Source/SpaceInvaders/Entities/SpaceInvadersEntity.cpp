@@ -6,7 +6,7 @@ ASpaceInvadersEntity::ASpaceInvadersEntity()
 {
 	UE_LOG(LogTemp, Log, TEXT("ASpaceInvadersEntity's construtor called"));
 
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 	RootComponent = MeshComponent;

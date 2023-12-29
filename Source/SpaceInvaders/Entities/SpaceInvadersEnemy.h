@@ -24,8 +24,4 @@ public:
 public:
 	UFUNCTION()
 	void Fire();
-
-//private:
-//	UPROPERTY()
-//	TSubclassOf<ASpaceInvadersProjectileBase> ProjectileClass;
 };

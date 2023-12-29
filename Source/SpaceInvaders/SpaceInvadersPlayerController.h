@@ -5,6 +5,7 @@
 #include "SpaceInvadersPlayerController.generated.h"
 
 class ASpaceInvadersPlayerShip;
+class ASpaceInvadersGameMode;
 
 /**
  * Space Invaders Player Controller
@@ -21,25 +22,20 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MovementSpeed = 10.0f;
+	float MovementSpeed = 1000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
 	float FireRate = 0.5f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MaxXLocation = 1000.0f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MinXLocation = 0.0f;
 
 private:
 	UPROPERTY()
 	ASpaceInvadersPlayerShip* PlayerShip;
 
 	float LastFireTime = 0.0f;
+	ASpaceInvadersGameMode* GameMode = nullptr;
 
 private:
 	void InitializePlayerShip();
-	void MovePlayerShip(float Amount);
+	void MovePlayerShip(float Direction);
 	void Fire();
 };

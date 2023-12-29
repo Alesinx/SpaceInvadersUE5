@@ -16,35 +16,44 @@ void ASpaceInvadersPlayerController::BeginPlay()
 {
     Super::BeginPlay();
 
+    GameMode = Cast<ASpaceInvadersGameMode>(GetWorld()->GetAuthGameMode());
+    if (!GameMode)
+    {
+		UE_LOG(LogTemp, Error, TEXT("Coudl not find Game Mode"));
+    }
+
     InitializePlayerShip();
 }
 
 void ASpaceInvadersPlayerController::InitializePlayerShip()
 {
-    FVector ShipSpawnLocation = FVector(0.0f, 0.0f, 0.0f);
+    FVector ShipSpawnLocation = GameMode? ShipSpawnLocation = FVector(GameMode->PlayingAreaWidth / 2, 0.0f, 0.0f) : FVector::ZeroVector;
     const FRotator ShipSpawnRotation = FRotator(0.0f, 90.0f, 0.0f);
-
-    ASpaceInvadersGameMode* GameMode = Cast<ASpaceInvadersGameMode>(GetWorld()->GetAuthGameMode());
-    if (GameMode)
-    {
-        ShipSpawnLocation = FVector(GameMode->PlayingAreaWidth / 2, 0.0f , 0.0f);
-	}
     PlayerShip = GetWorld()->SpawnActor<ASpaceInvadersPlayerShip>(ASpaceInvadersPlayerShip::StaticClass(), ShipSpawnLocation, ShipSpawnRotation);
 }
 
-void ASpaceInvadersPlayerController::MovePlayerShip(float Amount)
+void ASpaceInvadersPlayerController::MovePlayerShip(float Direction)
 {
-    if (PlayerShip)
+    if (!GameMode)
     {
-        const FVector currentLocation = PlayerShip->GetActorLocation();
-        const float offset = Amount * MovementSpeed * UGameplayStatics::GetWorldDeltaSeconds(this);
-        const FVector newLocation = FVector(
-            FMath::Clamp(currentLocation.X + Amount * MovementSpeed, MinXLocation, MaxXLocation),
-            currentLocation.Y,
-            currentLocation.Z);
-
-        PlayerShip->SetActorLocation(newLocation);
+        UE_LOG(LogTemp, Error, TEXT("Game mode not found. Aborting movement"));
+        return;
     }
+
+    if (!PlayerShip)
+    {
+        UE_LOG(LogTemp, Error, TEXT("Player ship not found. Aborting movement"));
+        return;
+    }
+
+    FVector Location = PlayerShip->GetActorLocation();
+    const float Min = 0.0f;
+    const float Max = GameMode->PlayingAreaWidth;
+    const float DeltaTime = GetWorld()->GetDeltaSeconds();
+    const float NewX = FMath::Clamp(Location.X + Direction * MovementSpeed * DeltaTime, Min, Max);
+    Location.X = NewX;
+
+    PlayerShip->SetActorLocation(Location);
 }
 
 void ASpaceInvadersPlayerController::Fire()

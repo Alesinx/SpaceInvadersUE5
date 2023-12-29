@@ -14,4 +14,5 @@ class SPACEINVADERS_API ASpaceInvadersEnemyProjectile : public ASpaceInvadersPro
 
 public:
 	ASpaceInvadersEnemyProjectile();
+	void Tick(float DeltaTime) override;
 };

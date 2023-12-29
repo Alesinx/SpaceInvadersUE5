@@ -20,6 +20,6 @@ protected:
 	UPROPERTY()
 	float MovementSpeed = 1000.0f;
 
-private:
-	void Tick(float DeltaTime) override;
+protected:
+	virtual void Tick(float DeltaTime) override;
 };

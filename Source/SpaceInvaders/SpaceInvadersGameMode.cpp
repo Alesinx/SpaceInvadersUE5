@@ -17,18 +17,17 @@ void ASpaceInvadersGameMode::StartPlay()
 
     UE_LOG(LogTemp, Warning, TEXT("Space Invaders Game Mode has started!"));
 
-    //InitializePlayerShip();
     InitializeEnemies();
 }
 
 void ASpaceInvadersGameMode::InitializeEnemies()
 {  
     const FRotator EnemySpawnRotation = FRotator(0.0f, -90.0f, 0.0f);
-    for (int i = 0; i < EnemiesRows; i++)
+    for (int i = 0; i < EnemiesColums; i++)
     {
-        for (int j = 0; j < EnemiesColums; j++)
+        for (int j = 0; j < EnemiesRows; j++)
         {
-			FVector EnemyLocation = FVector(i * SpacebetweenEnemies + EnemiesStartingPosition.X, j * SpacebetweenEnemies + EnemiesStartingPosition.Y, 0);
+			FVector EnemyLocation = FVector(i * SpacebetweenEnemies + EnemiesOffsetX, PlayingAreaHeight - j * SpacebetweenEnemies, 0);
 			ASpaceInvadersEnemy* Enemy = GetWorld()->SpawnActor<ASpaceInvadersEnemy>(ASpaceInvadersEnemy::StaticClass(), EnemyLocation, EnemySpawnRotation);
 			Enemies.Add(Enemy);
 		}
@@ -39,17 +38,75 @@ void ASpaceInvadersGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+    MoveEnemies(DeltaTime);
+    FireRandomEnemy();
+}
+
+void ASpaceInvadersGameMode::MoveEnemies(float DeltaTime)
+{
+    if (Enemies.Num() > 0)
+    {
+		int ValidEnemiesCount = 0;
+        for (int i = 0; i < Enemies.Num(); i++)
+        {
+            if (IsValid(Enemies[i]))
+            {
+				ValidEnemiesCount++;
+			}
+		}
+
+		FVector EnemyLocation = Enemies[0]->GetActorLocation();
+        float MaxOffsetX = PlayingAreaWidth - EnemiesBlockWidth;
+        float EnemiesMovementSpeed = MaxEnemiesMovementSpeed - (MaxEnemiesMovementSpeed - MinEnemiesMovementSpeed) * ValidEnemiesCount / InitialEnemiesCount;
+        EnemiesOffsetX += EnemiesMovementDirection - EnemiesMovementSpeed * EnemiesMovementDirection * DeltaTime;
+        if (EnemiesOffsetX >= MaxOffsetX)
+        {
+            EnemiesOffsetX = MaxOffsetX;
+            EnemiesMovementDirection = 1;
+            EnemiesOffsetY -= 100;
+        }
+        else if (EnemiesOffsetX <= 0.f)
+        {
+            EnemiesOffsetX = 0.f;
+			EnemiesMovementDirection = -1;
+            EnemiesOffsetY -= 100;
+		}
+
+        for (int i = 0; i < EnemiesColums; i++)
+        {
+            for (int j = 0; j < EnemiesRows; j++)
+            {
+                ASpaceInvadersEnemy* Enemy = Enemies[i * EnemiesRows + j];
+                if (!IsValid(Enemy)) // Avoid moving destroyed enemies
+                {
+					continue;
+				}
+
+                FVector Location = Enemy->GetActorLocation();
+                Location.X = i * SpacebetweenEnemies + EnemiesOffsetX;
+                Location.Y = PlayingAreaHeight - j * SpacebetweenEnemies + EnemiesOffsetY;
+                
+                Enemy->SetActorLocation(Location);
+            }
+        }
+	}
+}
+
+void ASpaceInvadersGameMode::FireRandomEnemy()
+{
     if (Enemies.Num() > 0)
     {
         if (GetWorld()->GetTimeSeconds() - LastFireTime >= EnemyFireFrecSeconds)
         {
             int RandomEnemyIndex = FMath::RandRange(0, Enemies.Num() - 1);
             ASpaceInvadersEnemy* RandomEnemy = Enemies[RandomEnemyIndex];
-            if (RandomEnemy) // Make sure it is not marked for destroy
+            if (!IsValid(RandomEnemy)) // Avoid firing destroyed enemies
             {
-                RandomEnemy->Fire();
-                LastFireTime = GetWorld()->GetTimeSeconds();
+                return; // Wait untill next tick
             }
+
+            RandomEnemy->Fire();
+            LastFireTime = GetWorld()->GetTimeSeconds();
         }
-	}
+    }
 }

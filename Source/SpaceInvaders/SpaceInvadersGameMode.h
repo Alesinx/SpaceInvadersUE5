@@ -16,47 +16,36 @@ class SPACEINVADERS_API ASpaceInvadersGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	UPROPERTY()
-	float PlayingAreaWidth = 1000;
-
-	UPROPERTY()
-	float PlayingAreaHeight = 1000;
+	float PlayingAreaWidth = 3000;
+	float PlayingAreaHeight = 3000;
 	
 public:
 	ASpaceInvadersGameMode();
 
 	virtual void StartPlay() override;
 
-	UFUNCTION()
-	ASpaceInvadersPlayerShip* GetPlayerShip() { return nullptr; }
-
 private:
-	UPROPERTY()
-	int EnemiesColums = 5;
-
-	UPROPERTY()
+	int EnemiesColums = 11;
 	int EnemiesRows = 5;
+	int InitialEnemiesCount = EnemiesColums * EnemiesRows;
 
-	UPROPERTY()
-	int SpacebetweenEnemies = 200;
+	float SpacebetweenEnemies = 150.0f;
+	float EnemiesBlockWidth = EnemiesColums * SpacebetweenEnemies;
+	float EnemiesOffsetX = PlayingAreaWidth / 2 - (EnemiesColums * SpacebetweenEnemies) / 2;
+	float EnemiesOffsetY = 0;
 
-	UPROPERTY()
+	float EnemiesMovementDirection = 1.0f;
+	float MaxEnemiesMovementSpeed = 1500.0f;
+	float MinEnemiesMovementSpeed = 500.0f;
+
 	float EnemyFireFrecSeconds = 2.0f;
+	float LastFireTime = 0;
 
-	UPROPERTY()
-	FVector2D EnemiesStartingPosition = FVector2D(0, 1000);
-
-	UPROPERTY()
-	ASpaceInvadersPlayerShip* PlayerShip;
-
-	UPROPERTY()
 	TArray<ASpaceInvadersEnemy*> Enemies;
 
 private:
-	UFUNCTION()
 	void InitializeEnemies();
-
 	void Tick(float DeltaTime) override;
-	
-	float LastFireTime = 0;
+	void MoveEnemies(float DeltaTime);
+	void FireRandomEnemy();
 };
