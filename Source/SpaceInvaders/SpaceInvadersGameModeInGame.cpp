@@ -20,11 +20,11 @@ void ASpaceInvadersGameModeInGame::StartPlay()
 
     InitializeEnemies();
 
- //   ASpaceInvadersPlayerController* PlayerController = Cast<ASpaceInvadersPlayerController>(GetWorld()->GetFirstPlayerController());
- //   if (PlayerController)
- //   {
-	//	PlayerController->GetPlayerShip()->OnShipHit.AddDynamic(this, &ASpaceInvadersGameModeInGame::OnPlayerShipHit);
-	//}
+    ASpaceInvadersPlayerController* PlayerController = Cast<ASpaceInvadersPlayerController>(GetWorld()->GetFirstPlayerController());
+    if (PlayerController)
+    {
+		PlayerController->GetPlayerShip()->OnShipHit.AddDynamic(this, &ASpaceInvadersGameModeInGame::OnPlayerShipHit);
+	}
 }
 
 void ASpaceInvadersGameModeInGame::InitializeEnemies()
@@ -37,6 +37,8 @@ void ASpaceInvadersGameModeInGame::InitializeEnemies()
 			FVector EnemyLocation = FVector(i * SpacebetweenEnemies + EnemiesOffsetX, PlayingAreaHeight - j * SpacebetweenEnemies, 0);
 			ASpaceInvadersEnemy* Enemy = GetWorld()->SpawnActor<ASpaceInvadersEnemy>(ASpaceInvadersEnemy::StaticClass(), EnemyLocation, EnemySpawnRotation);
 			Enemies.Add(Enemy);
+            ValidEnemiesCount++;
+            Enemy->OnEnemyHit.AddDynamic(this, &ASpaceInvadersGameModeInGame::OnEnemyHit);
 		}
 	}
 }
@@ -53,15 +55,6 @@ void ASpaceInvadersGameModeInGame::MoveEnemies(float DeltaTime)
 {
     if (Enemies.Num() > 0)
     {
-		int ValidEnemiesCount = 0;
-        for (int i = 0; i < Enemies.Num(); i++)
-        {
-            if (IsValid(Enemies[i]))
-            {
-				ValidEnemiesCount++;
-			}
-		}
-
 		FVector EnemyLocation = Enemies[0]->GetActorLocation();
         float MaxOffsetX = PlayingAreaWidth - EnemiesBlockWidth;
         float EnemiesMovementSpeed = MaxEnemiesMovementSpeed - (MaxEnemiesMovementSpeed - MinEnemiesMovementSpeed) * ValidEnemiesCount / InitialEnemiesCount;
@@ -109,7 +102,7 @@ void ASpaceInvadersGameModeInGame::FireRandomEnemy()
             ASpaceInvadersEnemy* RandomEnemy = Enemies[RandomEnemyIndex];
             if (!IsValid(RandomEnemy)) // Avoid firing destroyed enemies
             {
-                return; // Wait untill next tick
+                return;
             }
 
             RandomEnemy->Fire();
@@ -120,5 +113,12 @@ void ASpaceInvadersGameModeInGame::FireRandomEnemy()
 
 void ASpaceInvadersGameModeInGame::OnPlayerShipHit()
 {
-    UE_LOG(LogTemp, Warning, TEXT("Player hit!"));
+    UE_LOG(LogTemp, Log, TEXT("Player hit!"));
+}
+
+void ASpaceInvadersGameModeInGame::OnEnemyHit(int ScoreValue)
+{
+    UE_LOG(LogTemp, Log, TEXT("Enemy hit!"));
+    ValidEnemiesCount--;
+    Score += ScoreValue;
 }

@@ -26,7 +26,7 @@ public:
 
 private:
 	int EnemiesColums = 11;
-	int EnemiesRows = 5;
+	int EnemiesRows = 1;
 	int InitialEnemiesCount = EnemiesColums * EnemiesRows;
 
 	float SpacebetweenEnemies = 150.0f;
@@ -42,11 +42,19 @@ private:
 	float LastFireTime = 0;
 
 	TArray<ASpaceInvadersEnemy*> Enemies;
+	int ValidEnemiesCount = 0;
+
+	int Score = 0;
 
 private:
 	void InitializeEnemies();
 	void Tick(float DeltaTime) override;
 	void MoveEnemies(float DeltaTime);
 	void FireRandomEnemy();
+
+	UFUNCTION()
 	void OnPlayerShipHit();
+
+	UFUNCTION()
+	void OnEnemyHit(int ScoreValue);
 };
