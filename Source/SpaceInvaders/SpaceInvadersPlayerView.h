@@ -14,8 +14,6 @@ class SPACEINVADERS_API ASpaceInvadersPlayerView : public APawn
 public:
 	ASpaceInvadersPlayerView();
 
-	void Tick(float DeltaTime) override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
 	class UCameraComponent* CameraComponent;
 };

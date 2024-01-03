@@ -32,7 +32,7 @@ public:
 
 private:
 	int EnemyIndex;
-	int ScoreValue;
+	int ScoreValue = 10;
 
 private:
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,

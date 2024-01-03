@@ -6,6 +6,7 @@
 
 class ASpaceInvadersPlayerShip;
 class ASpaceInvadersEnemy;
+class USpaceInvadersGameOverWidget;
 
 /**
  * Space Invaders Game Mode
@@ -25,7 +26,7 @@ public:
 	virtual void StartPlay() override;
 
 private:
-	int EnemiesColums = 11;
+	int EnemiesColums = 1;
 	int EnemiesRows = 1;
 	int InitialEnemiesCount = EnemiesColums * EnemiesRows;
 
@@ -57,4 +58,6 @@ private:
 
 	UFUNCTION()
 	void OnEnemyHit(int ScoreValue);
+
+	TSubclassOf<USpaceInvadersGameOverWidget> GameOverScreenClass;
 };
