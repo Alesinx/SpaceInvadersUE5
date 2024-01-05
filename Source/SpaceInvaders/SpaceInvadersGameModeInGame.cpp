@@ -106,15 +106,17 @@ void ASpaceInvadersGameModeInGame::FireRandomEnemy()
         return;
     }
 
-    if (GetWorld()->GetTimeSeconds() - LastFireTime >= EnemyFireFrecSeconds)
+    if (GetWorld()->GetTimeSeconds() - LastFireTime < EnemyFireRate)
     {
-        int RandomEnemyIndex = FMath::RandRange(0, Enemies.Num() - 1);
-        ASpaceInvadersEnemy* RandomEnemy = Enemies[RandomEnemyIndex];
-        if (IsValid(RandomEnemy)) // Avoid firing destroyed enemies
-        {
-            RandomEnemy->Fire();
-            LastFireTime = GetWorld()->GetTimeSeconds();
-        }
+		return;
+    }
+
+    int RandomEnemyIndex = FMath::RandRange(0, Enemies.Num() - 1);
+    ASpaceInvadersEnemy* RandomEnemy = Enemies[RandomEnemyIndex];
+    if (IsValid(RandomEnemy)) // Avoid firing destroyed enemies
+    {
+        RandomEnemy->Fire();
+        LastFireTime = GetWorld()->GetTimeSeconds();
     }
 }
 

@@ -23,10 +23,10 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float MovementSpeed = 1000.0f;
+	float MovementSpeed = 1200.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Space Invaders")
-	float FireRate = 0.5f;
+	float FireRate = 0.4f;
 
 private:
 	UPROPERTY()

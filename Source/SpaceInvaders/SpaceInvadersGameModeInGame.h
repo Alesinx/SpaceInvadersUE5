@@ -36,10 +36,10 @@ private:
 	float EnemiesOffsetY = 0;
 
 	float EnemiesMovementDirection = 1.0f;
-	float MaxEnemiesMovementSpeed = 1250.0f;
+	float MaxEnemiesMovementSpeed = 1200.0f;
 	float MinEnemiesMovementSpeed = 250.0f;
 
-	float EnemyFireFrecSeconds = 2.0f;
+	float EnemyFireRate = 1.0f;
 	float LastFireTime = 0;
 
 	TArray<ASpaceInvadersEnemy*> Enemies;

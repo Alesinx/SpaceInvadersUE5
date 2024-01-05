@@ -5,7 +5,7 @@ ASpaceInvadersPlayerProjectile::ASpaceInvadersPlayerProjectile()
 	UE_LOG(LogTemp, Log, TEXT("ASpaceInvadersPlayerProjectile's constructor called"));
 	MeshComponent->SetCollisionProfileName(TEXT("PlayerProjectile"));
 	MovementSpeed = 10000.0f;
-	MeshComponent->SetWorldScale3D(FVector(1.0f, 0.2f, 0.2f));
+	MeshComponent->SetWorldScale3D(FVector(1.0f, 0.25f, 0.25f));
 }
 
 void ASpaceInvadersPlayerProjectile::Tick(float DeltaTime)
