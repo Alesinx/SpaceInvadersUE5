@@ -40,7 +40,7 @@ void ASpaceInvadersGameModeInGame::InitializeEnemies()
     {
         for (int j = 0; j < EnemiesRows; j++)
         {
-			FVector EnemyLocation = FVector(i * SpacebetweenEnemies + EnemiesOffsetX, PlayingAreaHeight - j * SpacebetweenEnemies, 0);
+			FVector EnemyLocation = FVector(i * -SpacebetweenEnemies + EnemiesOffsetX, PlayingAreaHeight - j * SpacebetweenEnemies, 0);
 			ASpaceInvadersEnemy* Enemy = GetWorld()->SpawnActor<ASpaceInvadersEnemy>(ASpaceInvadersEnemy::StaticClass(), EnemyLocation, EnemySpawnRotation);
 			Enemies.Add(Enemy);
             ValidEnemiesCount++;
@@ -65,7 +65,8 @@ void ASpaceInvadersGameModeInGame::MoveEnemies(float DeltaTime)
 	}
 
     FVector EnemyLocation = Enemies[0]->GetActorLocation();
-    float MaxOffsetX = PlayingAreaWidth - EnemiesBlockWidth;
+    float MaxOffsetX = PlayingAreaWidth;
+    float MinOffsetX = EnemiesBlockWidth;
     float EnemiesMovementSpeed = MaxEnemiesMovementSpeed - (MaxEnemiesMovementSpeed - MinEnemiesMovementSpeed) * ValidEnemiesCount / InitialEnemiesCount;
     EnemiesOffsetX += EnemiesMovementDirection - EnemiesMovementSpeed * EnemiesMovementDirection * DeltaTime;
     if (EnemiesOffsetX >= MaxOffsetX)
@@ -74,9 +75,9 @@ void ASpaceInvadersGameModeInGame::MoveEnemies(float DeltaTime)
         EnemiesMovementDirection = 1;
         EnemiesOffsetY -= 100;
     }
-    else if (EnemiesOffsetX <= 0.f)
+    else if (EnemiesOffsetX <= MinOffsetX)
     {
-        EnemiesOffsetX = 0.f;
+        EnemiesOffsetX = MinOffsetX;
         EnemiesMovementDirection = -1;
         EnemiesOffsetY -= 100;
     }
@@ -89,7 +90,7 @@ void ASpaceInvadersGameModeInGame::MoveEnemies(float DeltaTime)
             if (IsValid(Enemy)) // Avoid moving destroyed enemies
             {
                 FVector Location = Enemy->GetActorLocation();
-                Location.X = i * SpacebetweenEnemies + EnemiesOffsetX;
+                Location.X = i * -SpacebetweenEnemies + EnemiesOffsetX;
                 Location.Y = PlayingAreaHeight - j * SpacebetweenEnemies + EnemiesOffsetY;
 
                 Enemy->SetActorLocation(Location);

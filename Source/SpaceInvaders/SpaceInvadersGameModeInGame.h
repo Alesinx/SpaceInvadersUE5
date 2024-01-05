@@ -26,13 +26,13 @@ public:
 	virtual void StartPlay() override;
 
 private:
-	int EnemiesColums = 1;
-	int EnemiesRows = 1;
+	int EnemiesColums = 11;
+	int EnemiesRows = 5;
 	int InitialEnemiesCount = EnemiesColums * EnemiesRows;
 
 	float SpacebetweenEnemies = 150.0f;
 	float EnemiesBlockWidth = EnemiesColums * SpacebetweenEnemies;
-	float EnemiesOffsetX = PlayingAreaWidth / 2 - (EnemiesColums * SpacebetweenEnemies) / 2;
+	float EnemiesOffsetX = PlayingAreaWidth / 2 + EnemiesBlockWidth / 2;
 	float EnemiesOffsetY = 0;
 
 	float EnemiesMovementDirection = 1.0f;

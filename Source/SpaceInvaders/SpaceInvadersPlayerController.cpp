@@ -27,7 +27,7 @@ void ASpaceInvadersPlayerController::BeginPlay()
 
 void ASpaceInvadersPlayerController::InitializePlayerShip()
 {
-    FVector ShipSpawnLocation = GameMode? ShipSpawnLocation = FVector(GameMode->PlayingAreaWidth / 2, 0.0f, 0.0f) : FVector::ZeroVector;
+    FVector ShipSpawnLocation = GameMode? ShipSpawnLocation = FVector(GameMode->PlayingAreaWidth * 1/2, 0.0f, 0.0f) : FVector::ZeroVector;
     const FRotator ShipSpawnRotation = FRotator(0.0f, 90.0f, 0.0f);
     PlayerShip = GetWorld()->SpawnActor<ASpaceInvadersPlayerShip>(ASpaceInvadersPlayerShip::StaticClass(), ShipSpawnLocation, ShipSpawnRotation);
 }
@@ -47,7 +47,7 @@ void ASpaceInvadersPlayerController::MovePlayerShip(float Direction)
     }
 
     FVector Location = PlayerShip->GetActorLocation();
-    const float Min = 0.0f;
+    const float Min = 0.f;
     const float Max = GameMode->PlayingAreaWidth;
     const float DeltaTime = GetWorld()->GetDeltaSeconds();
     const float NewX = FMath::Clamp(Location.X + Direction * MovementSpeed * DeltaTime, Min, Max);
