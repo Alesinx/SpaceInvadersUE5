@@ -21,10 +21,15 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetIsWin(bool IsWin);
 
+    UFUNCTION()
+    void OnContinue();
+
 protected:
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     UTextBlock* GameOverTextBlock;
 
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     UTextBlock* ScoreTextBlock;
+    
+    void NativeConstruct() override;
 };
