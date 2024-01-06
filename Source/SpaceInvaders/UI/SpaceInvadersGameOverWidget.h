@@ -18,7 +18,13 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetScoreText(int32 Score);
 
+    UFUNCTION(BlueprintCallable)
+    void SetIsWin(bool IsWin);
+
 protected:
+    UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
+    UTextBlock* GameOverTextBlock;
+
     UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
     UTextBlock* ScoreTextBlock;
 };

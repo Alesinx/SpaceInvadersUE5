@@ -26,8 +26,8 @@ public:
 	virtual void StartPlay() override;
 
 private:
-	int EnemiesColums = 11;
-	int EnemiesRows = 5;
+	int EnemiesColums = 1;
+	int EnemiesRows = 3;
 	int InitialEnemiesCount = EnemiesColums * EnemiesRows;
 
 	float SpacebetweenEnemies = 150.0f;

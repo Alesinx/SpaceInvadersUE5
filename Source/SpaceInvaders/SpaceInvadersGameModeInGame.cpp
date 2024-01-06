@@ -123,6 +123,16 @@ void ASpaceInvadersGameModeInGame::FireRandomEnemy()
 void ASpaceInvadersGameModeInGame::OnPlayerShipHit()
 {
     UE_LOG(LogTemp, Log, TEXT("Player hit!"));
+    if (GameOverScreenClass)
+    {
+        USpaceInvadersGameOverWidget* GameOverWidget = CreateWidget<USpaceInvadersGameOverWidget>(GetWorld(), GameOverScreenClass);
+        if (GameOverWidget)
+        {
+            GameOverWidget->SetIsWin(false);
+            GameOverWidget->AddToViewport();
+            GameOverWidget->SetScoreText(Score);
+        }
+    }
 }
 
 void ASpaceInvadersGameModeInGame::OnEnemyHit(int ScoreValue)
@@ -137,6 +147,7 @@ void ASpaceInvadersGameModeInGame::OnEnemyHit(int ScoreValue)
             USpaceInvadersGameOverWidget* GameOverWidget = CreateWidget<USpaceInvadersGameOverWidget>(GetWorld(), GameOverScreenClass);
 			if (GameOverWidget)
 			{
+				GameOverWidget->SetIsWin(true);
 				GameOverWidget->AddToViewport();
                 GameOverWidget->SetScoreText(Score);
 			}
